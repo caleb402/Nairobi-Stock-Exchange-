@@ -1,0 +1,61 @@
+Ticker,Company Name,Sector,Market Cap (KES B),P/E Ratio,P/B Ratio,Dividend Yield (%),ROE (%),Valuation Score,Valuation Flag Comprehensive,Cumulative Return
+COMP01,"Rodriguez, Figueroa and Sanchez",Energy,25.29,5.63,2.16,6.58,27.25,3.0,Strongly Undervalued,0.11602165426276212
+COMP02,Doyle Ltd,Retail,99.54,17.73,3.35,5.68,13.45,0.0,Overvalued,0.24905296061081983
+COMP03,"Mcclain, Miller and Henderson",Telecom,7.84,11.29,3.35,0.94,14.39,0.0,Overvalued,0.13828692655057484
+COMP04,Davis and Sons,Retail,181.95,15.17,2.91,3.68,7.35,0.0,Overvalued,0.10461564769686027
+COMP05,"Guzman, Hoffman and Baldwin",Retail,52.5,23.15,0.91,2.65,19.46,0.0,Overvalued,0.013682783437427348
+COMP06,"Gardner, Robinson and Lawrence",Manufacturing,132.84,9.99,4.26,2.44,5.9,0.0,Overvalued,0.08663792362692635
+COMP07,Blake and Sons,Telecom,63.03,13.21,1.94,9.73,16.64,1.0,Weakly Undervalued,-0.06626460680205903
+COMP08,"Henderson, Ramirez and Lewis",Telecom,104.49,20.11,1.34,3.93,18.57,0.0,Overvalued,0.003933817461383438
+COMP09,Garcia-James,Telecom,109.8,9.58,0.68,8.92,12.16,0.0,Overvalued,-0.06482427621979425
+COMP10,Abbott-Munoz,Retail,37.79,6.54,3.16,6.31,19.77,0.0,Overvalued,0.06699590963653423
+COMP11,Blair PLC,Energy,193.95,10.8,3.55,7.95,5.76,0.0,Overvalued,0.027519332524430506
+COMP12,Dudley Group,Telecom,155.25,8.22,0.57,5.03,5.93,0.0,Overvalued,0.17699341789405065
+COMP13,Arnold Ltd,Agriculture,187.96,23.59,2.8,5.77,25.57,0.0,Overvalued,-0.1011930866842844
+COMP14,"Mcclure, Ward and Lee",Retail,179.07,21.16,1.52,4.93,14.0,0.0,Overvalued,-0.08222119164680408
+COMP15,Williams and Sons,Manufacturing,119.98,17.67,3.4,1.95,8.18,0.0,Overvalued,-0.07667435553459734
+COMP16,Galloway-Wyatt,Energy,184.45,22.43,1.28,7.22,18.06,0.0,Overvalued,-0.07681330839983358
+COMP17,James Group,Agriculture,18.61,21.07,3.61,2.81,24.25,0.0,Overvalued,0.016029480971158083
+COMP18,"Flowers, Martin and Kelly",Agriculture,40.0,8.73,2.24,0.24,10.4,0.0,Overvalued,0.05283706670702748
+COMP19,"Adams, Zuniga and Wong",Manufacturing,10.0,22.85,4.72,6.45,20.57,0.0,Overvalued,-0.1614997766573052
+COMP20,"Reid, Ferguson and Sanchez",Energy,65.74,15.79,1.12,1.77,7.13,0.0,Overvalued,0.1492548233230382
+COMP21,Gray-Mayo,Retail,78.35,21.15,2.03,9.4,6.29,0.0,Overvalued,0.1463241273426359
+COMP22,"Watts, Robinson and Nguyen",Banking,55.0,22.92,1.01,9.54,18.28,0.0,Overvalued,0.06192593870057728
+COMP23,Perez Inc,Energy,165.92,11.36,4.66,9.15,18.52,0.0,Overvalued,0.16611394430681403
+COMP24,Morales-Jones,Manufacturing,71.99,7.2,4.45,3.7,20.94,1.0,Weakly Undervalued,-0.14619641897615676
+COMP25,"Walter, Edwards and Rios",Agriculture,56.91,9.56,1.66,0.15,23.15,3.0,Strongly Undervalued,0.2797724043442471
+COMP26,Wilkerson-Day,Retail,109.0,13.54,3.47,9.28,29.4,1.0,Weakly Undervalued,0.09725347441164933
+COMP27,Baker and Sons,Energy,29.04,21.36,4.18,4.28,17.91,0.0,Overvalued,-0.10182777213154226
+COMP28,"Hoffman, Baker and Richards",Banking,160.64,22.21,3.0,9.67,13.07,0.0,Overvalued,0.06673525889523857
+COMP29,"Ross, Robinson and Bright",Banking,15.84,5.14,2.88,9.64,24.88,0.0,Overvalued,0.13897368186136427
+COMP30,"Snyder, Campos and Callahan",Telecom,197.39,15.21,1.59,8.53,11.77,0.0,Overvalued,0.04323361181261287
+COMP31,Burton Ltd,Telecom,154.68,13.35,0.92,2.94,15.97,1.0,Weakly Undervalued,0.006708457436366944
+COMP32,Carlson-Cruz,Manufacturing,40.54,9.44,4.54,3.85,6.96,0.0,Overvalued,0.0703424270545312
+COMP33,"Ferrell, Rice and Maddox",Energy,2.1,7.4,4.55,8.51,5.63,0.0,Overvalued,-0.011911361617322647
+COMP34,Frazier Inc,Energy,163.28,11.75,3.35,3.17,29.07,1.0,Weakly Undervalued,-0.09680117630683072
+COMP35,"Dyer, Potter and Mack",Agriculture,141.66,23.86,2.03,1.69,25.9,0.0,Overvalued,-0.0002683319246776783
+COMP36,Rodriguez-Graham,Agriculture,146.07,11.46,2.07,5.57,22.4,3.0,Strongly Undervalued,-0.13470575261940998
+COMP37,Smith-Bowen,Agriculture,154.48,15.38,3.77,9.36,15.22,0.0,Overvalued,-0.2066528952007639
+COMP38,"Baker, Mason and White",Telecom,15.73,19.06,4.54,6.96,9.33,0.0,Overvalued,0.15095454491514793
+COMP39,Harrell LLC,Energy,72.33,12.27,4.49,5.7,8.91,0.0,Overvalued,0.02023346011635252
+COMP40,"Romero, Gonzalez and Brooks",Energy,24.06,24.44,4.01,0.97,11.26,0.0,Overvalued,0.21825522050168766
+COMP41,Ryan PLC,Banking,172.76,24.25,3.39,6.15,18.73,0.0,Overvalued,0.07772089954009975
+COMP42,George Group,Telecom,125.04,10.04,0.88,9.9,22.86,3.0,Strongly Undervalued,0.09395536406452054
+COMP43,Rodriguez LLC,Retail,66.85,14.94,1.23,1.4,21.5,3.0,Strongly Undervalued,-0.07383203115018089
+COMP44,Allen-Allen,Telecom,13.65,11.02,4.54,5.18,12.0,0.0,Overvalued,-0.0762154129338245
+COMP45,"Arroyo, Miller and Tucker",Retail,62.89,10.7,3.23,8.77,28.87,1.0,Weakly Undervalued,-0.024945137342835766
+COMP46,Spence PLC,Banking,65.71,5.74,0.54,7.41,23.45,3.0,Strongly Undervalued,0.09140712069581092
+COMP47,Anderson Group,Manufacturing,146.19,17.19,0.96,6.97,18.86,1.0,Weakly Undervalued,-0.06043998037466791
+COMP48,"Martin, Rose and Obrien",Energy,127.87,15.05,3.49,7.02,20.29,0.0,Overvalued,0.2373238184571156
+COMP49,Hickman Ltd,Banking,177.56,6.03,0.52,3.59,15.49,0.0,Overvalued,-0.0719990208214284
+COMP50,"Harris, Collins and Carney",Energy,94.97,10.57,1.22,2.94,11.19,0.0,Overvalued,0.2320550874942977
+COMP51,"Brooks, Lam and Hayes",Agriculture,24.8,23.17,2.97,8.09,13.9,0.0,Overvalued,-0.07352930930024115
+COMP52,Walker LLC,Manufacturing,142.94,9.79,3.61,8.1,23.95,1.0,Weakly Undervalued,-0.1331182343942766
+COMP53,Chapman and Sons,Manufacturing,152.4,7.9,3.43,8.67,5.36,0.0,Overvalued,0.071741380788233
+COMP54,"Robinson, Jones and Welch",Banking,112.69,14.79,1.51,9.13,7.9,0.0,Overvalued,-0.027925754938961433
+COMP55,Jones Inc,Manufacturing,154.42,24.71,3.7,5.11,6.15,0.0,Overvalued,-0.11973578512231009
+COMP56,Jones-Young,Retail,99.27,9.84,1.57,5.02,6.02,0.0,Overvalued,0.0970219919622417
+COMP57,"Washington, Ryan and Cummings",Manufacturing,105.02,18.44,1.96,7.98,26.39,1.0,Weakly Undervalued,0.2980828121770509
+COMP58,"Johnston, Sanchez and Kennedy",Energy,86.08,20.23,3.86,6.5,22.59,0.0,Overvalued,-0.25631507773589635
+COMP59,Lee-Davis,Energy,6.06,9.75,3.42,7.02,16.85,1.0,Weakly Undervalued,0.0066335129961583306
+COMP60,Gomez-Jenkins,Energy,22.47,19.56,4.32,7.96,7.45,0.0,Overvalued,-0.042765397035274266
