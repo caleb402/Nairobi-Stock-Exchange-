@@ -1,61 +1,61 @@
-Ticker,Company Name,Sector,Market Cap (KES B),P/E Ratio,P/B Ratio,Dividend Yield (%),ROE (%),Valuation Score,Valuation Flag Comprehensive,Cumulative Return
-COMP01,"Rodriguez, Figueroa and Sanchez",Energy,25.29,5.63,2.16,6.58,27.25,3.0,Strongly Undervalued,0.11602165426276212
-COMP02,Doyle Ltd,Retail,99.54,17.73,3.35,5.68,13.45,0.0,Overvalued,0.24905296061081983
-COMP03,"Mcclain, Miller and Henderson",Telecom,7.84,11.29,3.35,0.94,14.39,0.0,Overvalued,0.13828692655057484
-COMP04,Davis and Sons,Retail,181.95,15.17,2.91,3.68,7.35,0.0,Overvalued,0.10461564769686027
-COMP05,"Guzman, Hoffman and Baldwin",Retail,52.5,23.15,0.91,2.65,19.46,0.0,Overvalued,0.013682783437427348
-COMP06,"Gardner, Robinson and Lawrence",Manufacturing,132.84,9.99,4.26,2.44,5.9,0.0,Overvalued,0.08663792362692635
-COMP07,Blake and Sons,Telecom,63.03,13.21,1.94,9.73,16.64,1.0,Weakly Undervalued,-0.06626460680205903
-COMP08,"Henderson, Ramirez and Lewis",Telecom,104.49,20.11,1.34,3.93,18.57,0.0,Overvalued,0.003933817461383438
-COMP09,Garcia-James,Telecom,109.8,9.58,0.68,8.92,12.16,0.0,Overvalued,-0.06482427621979425
-COMP10,Abbott-Munoz,Retail,37.79,6.54,3.16,6.31,19.77,0.0,Overvalued,0.06699590963653423
-COMP11,Blair PLC,Energy,193.95,10.8,3.55,7.95,5.76,0.0,Overvalued,0.027519332524430506
-COMP12,Dudley Group,Telecom,155.25,8.22,0.57,5.03,5.93,0.0,Overvalued,0.17699341789405065
-COMP13,Arnold Ltd,Agriculture,187.96,23.59,2.8,5.77,25.57,0.0,Overvalued,-0.1011930866842844
-COMP14,"Mcclure, Ward and Lee",Retail,179.07,21.16,1.52,4.93,14.0,0.0,Overvalued,-0.08222119164680408
-COMP15,Williams and Sons,Manufacturing,119.98,17.67,3.4,1.95,8.18,0.0,Overvalued,-0.07667435553459734
-COMP16,Galloway-Wyatt,Energy,184.45,22.43,1.28,7.22,18.06,0.0,Overvalued,-0.07681330839983358
-COMP17,James Group,Agriculture,18.61,21.07,3.61,2.81,24.25,0.0,Overvalued,0.016029480971158083
-COMP18,"Flowers, Martin and Kelly",Agriculture,40.0,8.73,2.24,0.24,10.4,0.0,Overvalued,0.05283706670702748
-COMP19,"Adams, Zuniga and Wong",Manufacturing,10.0,22.85,4.72,6.45,20.57,0.0,Overvalued,-0.1614997766573052
-COMP20,"Reid, Ferguson and Sanchez",Energy,65.74,15.79,1.12,1.77,7.13,0.0,Overvalued,0.1492548233230382
-COMP21,Gray-Mayo,Retail,78.35,21.15,2.03,9.4,6.29,0.0,Overvalued,0.1463241273426359
-COMP22,"Watts, Robinson and Nguyen",Banking,55.0,22.92,1.01,9.54,18.28,0.0,Overvalued,0.06192593870057728
-COMP23,Perez Inc,Energy,165.92,11.36,4.66,9.15,18.52,0.0,Overvalued,0.16611394430681403
-COMP24,Morales-Jones,Manufacturing,71.99,7.2,4.45,3.7,20.94,1.0,Weakly Undervalued,-0.14619641897615676
-COMP25,"Walter, Edwards and Rios",Agriculture,56.91,9.56,1.66,0.15,23.15,3.0,Strongly Undervalued,0.2797724043442471
-COMP26,Wilkerson-Day,Retail,109.0,13.54,3.47,9.28,29.4,1.0,Weakly Undervalued,0.09725347441164933
-COMP27,Baker and Sons,Energy,29.04,21.36,4.18,4.28,17.91,0.0,Overvalued,-0.10182777213154226
-COMP28,"Hoffman, Baker and Richards",Banking,160.64,22.21,3.0,9.67,13.07,0.0,Overvalued,0.06673525889523857
-COMP29,"Ross, Robinson and Bright",Banking,15.84,5.14,2.88,9.64,24.88,0.0,Overvalued,0.13897368186136427
-COMP30,"Snyder, Campos and Callahan",Telecom,197.39,15.21,1.59,8.53,11.77,0.0,Overvalued,0.04323361181261287
-COMP31,Burton Ltd,Telecom,154.68,13.35,0.92,2.94,15.97,1.0,Weakly Undervalued,0.006708457436366944
-COMP32,Carlson-Cruz,Manufacturing,40.54,9.44,4.54,3.85,6.96,0.0,Overvalued,0.0703424270545312
-COMP33,"Ferrell, Rice and Maddox",Energy,2.1,7.4,4.55,8.51,5.63,0.0,Overvalued,-0.011911361617322647
-COMP34,Frazier Inc,Energy,163.28,11.75,3.35,3.17,29.07,1.0,Weakly Undervalued,-0.09680117630683072
-COMP35,"Dyer, Potter and Mack",Agriculture,141.66,23.86,2.03,1.69,25.9,0.0,Overvalued,-0.0002683319246776783
-COMP36,Rodriguez-Graham,Agriculture,146.07,11.46,2.07,5.57,22.4,3.0,Strongly Undervalued,-0.13470575261940998
-COMP37,Smith-Bowen,Agriculture,154.48,15.38,3.77,9.36,15.22,0.0,Overvalued,-0.2066528952007639
-COMP38,"Baker, Mason and White",Telecom,15.73,19.06,4.54,6.96,9.33,0.0,Overvalued,0.15095454491514793
-COMP39,Harrell LLC,Energy,72.33,12.27,4.49,5.7,8.91,0.0,Overvalued,0.02023346011635252
-COMP40,"Romero, Gonzalez and Brooks",Energy,24.06,24.44,4.01,0.97,11.26,0.0,Overvalued,0.21825522050168766
-COMP41,Ryan PLC,Banking,172.76,24.25,3.39,6.15,18.73,0.0,Overvalued,0.07772089954009975
-COMP42,George Group,Telecom,125.04,10.04,0.88,9.9,22.86,3.0,Strongly Undervalued,0.09395536406452054
-COMP43,Rodriguez LLC,Retail,66.85,14.94,1.23,1.4,21.5,3.0,Strongly Undervalued,-0.07383203115018089
-COMP44,Allen-Allen,Telecom,13.65,11.02,4.54,5.18,12.0,0.0,Overvalued,-0.0762154129338245
-COMP45,"Arroyo, Miller and Tucker",Retail,62.89,10.7,3.23,8.77,28.87,1.0,Weakly Undervalued,-0.024945137342835766
-COMP46,Spence PLC,Banking,65.71,5.74,0.54,7.41,23.45,3.0,Strongly Undervalued,0.09140712069581092
-COMP47,Anderson Group,Manufacturing,146.19,17.19,0.96,6.97,18.86,1.0,Weakly Undervalued,-0.06043998037466791
-COMP48,"Martin, Rose and Obrien",Energy,127.87,15.05,3.49,7.02,20.29,0.0,Overvalued,0.2373238184571156
-COMP49,Hickman Ltd,Banking,177.56,6.03,0.52,3.59,15.49,0.0,Overvalued,-0.0719990208214284
-COMP50,"Harris, Collins and Carney",Energy,94.97,10.57,1.22,2.94,11.19,0.0,Overvalued,0.2320550874942977
-COMP51,"Brooks, Lam and Hayes",Agriculture,24.8,23.17,2.97,8.09,13.9,0.0,Overvalued,-0.07352930930024115
-COMP52,Walker LLC,Manufacturing,142.94,9.79,3.61,8.1,23.95,1.0,Weakly Undervalued,-0.1331182343942766
-COMP53,Chapman and Sons,Manufacturing,152.4,7.9,3.43,8.67,5.36,0.0,Overvalued,0.071741380788233
-COMP54,"Robinson, Jones and Welch",Banking,112.69,14.79,1.51,9.13,7.9,0.0,Overvalued,-0.027925754938961433
-COMP55,Jones Inc,Manufacturing,154.42,24.71,3.7,5.11,6.15,0.0,Overvalued,-0.11973578512231009
-COMP56,Jones-Young,Retail,99.27,9.84,1.57,5.02,6.02,0.0,Overvalued,0.0970219919622417
-COMP57,"Washington, Ryan and Cummings",Manufacturing,105.02,18.44,1.96,7.98,26.39,1.0,Weakly Undervalued,0.2980828121770509
-COMP58,"Johnston, Sanchez and Kennedy",Energy,86.08,20.23,3.86,6.5,22.59,0.0,Overvalued,-0.25631507773589635
-COMP59,Lee-Davis,Energy,6.06,9.75,3.42,7.02,16.85,1.0,Weakly Undervalued,0.0066335129961583306
-COMP60,Gomez-Jenkins,Energy,22.47,19.56,4.32,7.96,7.45,0.0,Overvalued,-0.042765397035274266
+Ticker,Company Name,Sector,Market Cap (KES B),P/E Ratio,P/B Ratio,Dividend Yield (%),ROE (%),Raw Valuation Score,Normalised Valuation Score,Valuation Flag Comprehensive,Score Breakdown,Cumulative Return,Normalized Return
+COMP01,"Rodriguez, Figueroa and Sanchez",Telecom,130.74,22.34,0.56,3.72,15.61,0.5,0.0625,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=0.50/8.0 | Norm=0.0625,0.03815409587083596,0.3336271467220816
+COMP02,Doyle Ltd,Energy,45.63,23.26,1.02,7.76,27.66,3.5,0.5385,Moderately Undervalued,ROE/PB=0.0(1.5) | ROE/PE=3.5(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=3.50/6.5 | Norm=0.5385,-0.11685856957098317,-1.0073400568347934
+COMP03,"Mcclain, Miller and Henderson",Telecom,142.72,15.23,0.71,3.41,7.78,0.5,0.0625,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=0.50/8.0 | Norm=0.0625,-0.07971440310239353,-1.4711831385709422
+COMP04,Davis and Sons,Manufacturing,48.21,15.03,0.68,9.31,17.32,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.00(0.5) | Raw=0.00/8.0 | Norm=0.0000,-0.08312015990230504,-1.3059517772906206
+COMP05,"Guzman, Hoffman and Baldwin",Telecom,65.75,20.97,4.35,8.58,5.28,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.00(1.0) | Raw=0.00/8.0 | Norm=0.0000,0.005878775213679077,-0.160574706958919
+COMP06,"Gardner, Robinson and Lawrence",Telecom,149.55,18.0,3.67,4.29,16.72,1.0,0.125,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=1.00(1.0) | Raw=1.00/8.0 | Norm=0.1250,-0.021159596121737234,-0.5745880447788465
+COMP07,Blake and Sons,Energy,130.28,19.04,2.63,7.51,6.41,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,0.23613908096574177,0.6630173349864632
+COMP08,"Henderson, Ramirez and Lewis",Energy,170.0,20.92,0.94,7.55,7.97,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,0.20061877472948897,0.4949380121035285
+COMP09,Garcia-James,Banking,131.86,22.8,2.71,1.03,7.94,0.75,0.0882,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=0.75/8.5 | Norm=0.0882,-0.05647306430478438,-1.1193155760260016
+COMP10,Abbott-Munoz,Banking,114.09,11.76,2.63,9.03,21.23,3.5,0.4118,Weakly Undervalued,ROE/PB=3.5(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.00(1.5) | Raw=3.50/8.5 | Norm=0.4118,-0.026899981889136892,-0.7745579598723524
+COMP11,Blair PLC,Manufacturing,19.64,12.51,1.28,5.05,23.65,7.75,0.9688,Strongly Undervalued,ROE/PB=3.0(3.0) | ROE/PE=2.5(2.5) | Simple=2.0(2.0) | Div=0.25(0.5) | Raw=7.75/8.0 | Norm=0.9688,0.0006068948957358433,-0.08002373477610446
+COMP12,Dudley Group,Banking,74.18,6.88,2.45,8.26,19.58,8.5,1.0,Strongly Undervalued,ROE/PB=3.5(3.5) | ROE/PE=1.5(1.5) | Simple=2.0(2.0) | Div=1.50(1.5) | Raw=8.50/8.5 | Norm=1.0000,-0.002838238848562158,-0.49405053577032626
+COMP13,Arnold Ltd,Telecom,53.78,16.57,2.29,3.2,29.05,4.0,0.5,Moderately Undervalued,ROE/PB=0.0(1.5) | ROE/PE=3.5(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=4.00/8.0 | Norm=0.5000,0.041707325568643094,0.38803443586612557
+COMP14,"Mcclure, Ward and Lee",Energy,49.55,5.72,3.27,8.96,14.37,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,0.1231281894967422,0.12825859754292818
+COMP15,Williams and Sons,Banking,194.63,14.31,3.36,3.89,12.14,0.75,0.0882,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=0.75/8.5 | Norm=0.0882,-0.023182434435131682,-0.7312194677879843
+COMP16,Galloway-Wyatt,Banking,79.23,15.85,0.7,0.11,26.71,2.25,0.2647,Weakly Undervalued,ROE/PB=0.0(3.5) | ROE/PE=1.5(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=2.25/8.5 | Norm=0.2647,0.17752521484679895,1.608593803541111
+COMP17,James Group,Manufacturing,178.52,10.73,2.19,9.05,10.59,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.00(0.5) | Raw=0.00/8.0 | Norm=0.0000,0.06557243287579118,0.871198961387039
+COMP18,"Flowers, Martin and Kelly",Agriculture,126.6,16.82,3.32,0.91,29.08,0.1,0.0161,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.10(0.2) | Raw=0.10/6.2 | Norm=0.0161,-0.0977015870191228,-0.4894458257311083
+COMP19,"Adams, Zuniga and Wong",Manufacturing,159.17,5.61,2.76,3.19,5.3,0.25,0.0312,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.25(0.5) | Raw=0.25/8.0 | Norm=0.0312,-0.03753723658792818,-0.6385285162470363
+COMP20,"Reid, Ferguson and Sanchez",Telecom,101.02,5.75,4.35,9.5,29.25,1.0,0.125,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=1.00(1.0) | Raw=1.00/8.0 | Norm=0.1250,-0.011553321555308083,-0.42749613055350416
+COMP21,Gray-Mayo,Energy,115.8,21.45,3.46,9.51,6.08,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,0.3246751693380028,1.0819632102088266
+COMP22,"Watts, Robinson and Nguyen",Manufacturing,99.01,12.2,1.23,5.73,27.28,7.75,0.9688,Strongly Undervalued,ROE/PB=3.0(3.0) | ROE/PE=2.5(2.5) | Simple=2.0(2.0) | Div=0.25(0.5) | Raw=7.75/8.0 | Norm=0.9688,0.04471141437199311,0.5657527989619076
+COMP23,Perez Inc,Banking,39.85,7.54,0.82,6.32,18.19,8.5,1.0,Strongly Undervalued,ROE/PB=3.5(3.5) | ROE/PE=1.5(1.5) | Simple=2.0(2.0) | Div=1.50(1.5) | Raw=8.50/8.5 | Norm=1.0000,-0.017531144334873794,-0.6653377556358977
+COMP24,Morales-Jones,Energy,144.77,15.44,3.39,4.48,29.82,1.5,0.2308,Overvalued,ROE/PB=1.5(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=1.50/6.5 | Norm=0.2308,0.3785927793910433,1.3370971420196915
+COMP25,"Walter, Edwards and Rios",Energy,56.87,20.4,0.62,2.93,6.84,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,-0.058095591078015874,-0.729278218910607
+COMP26,Wilkerson-Day,Banking,5.84,9.32,3.14,3.29,18.85,0.75,0.0882,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=0.75/8.5 | Norm=0.0882,-0.010216042126182767,-0.5800596245319778
+COMP27,Baker and Sons,Manufacturing,129.45,17.46,4.73,6.73,29.23,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.00(0.5) | Raw=0.00/8.0 | Norm=0.0000,0.13841884392021409,1.9378130720984412
+COMP28,"Hoffman, Baker and Richards",Banking,36.25,6.71,3.09,7.52,18.08,1.5,0.1765,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=1.50(1.5) | Raw=1.50/8.5 | Norm=0.1765,0.04027797770106001,0.008590474939710092
+COMP29,"Ross, Robinson and Bright",Agriculture,188.15,6.03,2.25,7.92,20.73,0.2,0.0323,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.20(0.2) | Raw=0.20/6.2 | Norm=0.0323,0.12043732294268916,1.1427757761698965
+COMP30,"Snyder, Campos and Callahan",Energy,190.83,15.63,3.39,7.9,22.39,1.5,0.2308,Overvalued,ROE/PB=1.5(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=1.50/6.5 | Norm=0.2308,-0.01853472240537779,-0.5420792692469572
+COMP31,Burton Ltd,Retail,183.06,15.81,2.56,0.91,16.36,7.4,0.9487,Strongly Undervalued,ROE/PB=1.5(1.5) | ROE/PE=2.0(2.0) | Simple=3.5(3.5) | Div=0.40(0.8) | Raw=7.40/7.8 | Norm=0.9487,-0.20189297585907018,-0.8561088556459926
+COMP32,Carlson-Cruz,Retail,74.66,17.75,2.96,4.94,20.69,7.0,0.8974,Strongly Undervalued,ROE/PB=1.5(1.5) | ROE/PE=2.0(2.0) | Simple=3.5(3.5) | Div=0.00(0.8) | Raw=7.00/7.8 | Norm=0.8974,-0.17500187311815052,1.09910451571762
+COMP33,"Ferrell, Rice and Maddox",Telecom,4.08,19.52,4.74,0.58,19.61,0.5,0.0625,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=0.50/8.0 | Norm=0.0625,-0.04907143002765635,-1.0019758994950991
+COMP34,Frazier Inc,Banking,185.74,24.52,2.24,5.5,27.53,0.0,0.0,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.00(1.5) | Raw=0.00/8.5 | Norm=0.0000,0.12893274002423216,1.0421115698876342
+COMP35,"Dyer, Potter and Mack",Banking,86.21,15.33,4.83,4.42,6.14,0.75,0.0882,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=0.75/8.5 | Norm=0.0882,0.10182903403571464,0.7261414949999873
+COMP36,Rodriguez-Graham,Telecom,193.36,11.46,4.57,8.88,12.02,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.00(1.0) | Raw=0.00/8.0 | Norm=0.0000,0.041076744281106414,0.3783789333071424
+COMP37,Smith-Bowen,Telecom,192.76,20.9,1.38,3.51,28.76,4.0,0.5,Moderately Undervalued,ROE/PB=0.0(1.5) | ROE/PE=3.5(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=4.00/8.0 | Norm=0.5000,0.15224669476843244,2.080620599255668
+COMP38,"Baker, Mason and White",Telecom,170.75,10.42,0.81,1.17,27.26,7.5,0.9375,Strongly Undervalued,ROE/PB=1.5(1.5) | ROE/PE=3.5(3.5) | Simple=2.0(2.0) | Div=0.50(1.0) | Raw=7.50/8.0 | Norm=0.9375,-0.04791636866560911,-0.9842895231984017
+COMP39,Harrell LLC,Energy,59.6,13.78,0.95,1.43,16.39,6.5,1.0,Strongly Undervalued,ROE/PB=1.5(1.5) | ROE/PE=3.5(3.5) | Simple=1.5(1.5) | Div=0.00(0.0) | Raw=6.50/6.5 | Norm=1.0000,-0.19636791573860357,-1.3835720909234814
+COMP40,"Romero, Gonzalez and Brooks",Agriculture,77.63,6.57,0.58,7.62,20.5,0.2,0.0323,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.20(0.2) | Raw=0.20/6.2 | Norm=0.0323,-0.23159529802435397,-1.4913038046661256
+COMP41,Ryan PLC,Banking,170.38,5.51,0.92,6.18,11.93,1.5,0.1765,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=1.50(1.5) | Raw=1.50/8.5 | Norm=0.1765,-0.021608018647803817,-0.712865214888509
+COMP42,George Group,Energy,64.07,24.25,3.57,1.01,9.7,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,0.4143584856170406,1.5063376785429985
+COMP43,Rodriguez LLC,Telecom,34.73,21.72,0.82,0.84,16.59,0.5,0.0625,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=0.50/8.0 | Norm=0.0625,-0.004902749918825777,-0.32566213591404186
+COMP44,Allen-Allen,Banking,111.8,18.92,1.94,7.01,13.83,0.0,0.0,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.00(1.5) | Raw=0.00/8.5 | Norm=0.0000,0.06381444890273213,0.28297437547839993
+COMP45,"Arroyo, Miller and Tucker",Energy,187.29,13.18,4.3,0.73,19.59,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=0.00/6.5 | Norm=0.0000,-0.01667623096514781,-0.5332850324861611
+COMP46,Spence PLC,Agriculture,139.51,8.47,0.6,8.22,6.94,0.2,0.0323,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.20(0.2) | Raw=0.20/6.2 | Norm=0.0323,0.1700445968990516,1.5139615686411743
+COMP47,Anderson Group,Energy,114.44,8.13,4.17,7.06,29.36,1.5,0.2308,Overvalued,ROE/PB=1.5(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(1.5) | Div=0.00(0.0) | Raw=1.50/6.5 | Norm=0.2308,-0.11870079138733569,-1.0160573070024363
+COMP48,"Martin, Rose and Obrien",Agriculture,20.34,10.0,1.77,0.81,29.66,6.1,0.9839,Strongly Undervalued,ROE/PB=3.0(3.0) | ROE/PE=1.0(1.0) | Simple=2.0(2.0) | Div=0.10(0.2) | Raw=6.10/6.2 | Norm=0.9839,-0.14267708849460392,-0.8259744398947262
+COMP49,Hickman Ltd,Telecom,123.39,15.98,1.03,0.85,22.45,7.5,0.9375,Strongly Undervalued,ROE/PB=1.5(1.5) | ROE/PE=3.5(3.5) | Simple=2.0(2.0) | Div=0.50(1.0) | Raw=7.50/8.0 | Norm=0.9375,0.04719632941504148,0.47208242735062544
+COMP50,"Harris, Collins and Carney",Agriculture,198.02,19.29,3.64,9.87,18.4,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.00(0.2) | Raw=0.00/6.2 | Norm=0.0000,0.02751030899629181,0.44745058365830465
+COMP51,"Brooks, Lam and Hayes",Banking,28.88,18.2,3.33,3.74,12.74,0.75,0.0882,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.75(1.5) | Raw=0.75/8.5 | Norm=0.0882,-0.018382448317554534,-0.6752621026338226
+COMP52,Walker LLC,Telecom,104.15,10.6,4.45,3.71,25.34,0.5,0.0625,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.50(1.0) | Raw=0.50/8.0 | Norm=0.0625,0.1305045950393804,1.7477041240592528
+COMP53,Chapman and Sons,Banking,175.6,24.1,3.81,8.13,22.12,0.0,0.0,Overvalued,ROE/PB=0.0(3.5) | ROE/PE=0.0(1.5) | Simple=0.0(2.0) | Div=0.00(1.5) | Raw=0.00/8.5 | Norm=0.0000,0.21832725084691718,2.08425651830003
+COMP54,"Robinson, Jones and Welch",Retail,148.41,19.76,4.12,9.47,9.07,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(2.0) | Simple=0.0(3.5) | Div=0.00(0.8) | Raw=0.00/7.8 | Norm=0.0000,-0.19346049980531588,-0.24299566007162535
+COMP55,Jones Inc,Manufacturing,139.71,16.09,1.77,9.86,27.77,2.5,0.3125,Weakly Undervalued,ROE/PB=0.0(3.0) | ROE/PE=2.5(2.5) | Simple=0.0(2.0) | Div=0.00(0.5) | Raw=2.50/8.0 | Norm=0.3125,0.008308732884460879,0.03274625566553415
+COMP56,Jones-Young,Agriculture,140.79,17.23,1.3,7.53,25.56,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.00(0.2) | Raw=0.00/6.2 | Norm=0.0000,-0.041922376657583915,-0.07207859810068439
+COMP57,"Washington, Ryan and Cummings",Manufacturing,72.54,13.39,3.88,3.76,28.74,0.25,0.0312,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.25(0.5) | Raw=0.25/8.0 | Norm=0.0312,-0.02676766018607779,-0.4808408279737842
+COMP58,"Johnston, Sanchez and Kennedy",Manufacturing,59.42,9.95,4.13,0.84,23.14,0.25,0.0312,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(2.5) | Simple=0.0(2.0) | Div=0.25(0.5) | Raw=0.25/8.0 | Norm=0.0312,-0.055542868805772305,-0.902166231825376
+COMP59,Lee-Davis,Agriculture,162.06,12.12,4.96,7.77,20.34,0.0,0.0,Overvalued,ROE/PB=0.0(3.0) | ROE/PE=0.0(1.0) | Simple=0.0(2.0) | Div=0.00(0.2) | Raw=0.00/6.2 | Norm=0.0000,-0.06241110692214458,-0.22538526007673113
+COMP60,Gomez-Jenkins,Telecom,162.21,20.16,2.36,5.58,15.46,0.0,0.0,Overvalued,ROE/PB=0.0(1.5) | ROE/PE=0.0(3.5) | Simple=0.0(2.0) | Div=0.00(1.0) | Raw=0.00/8.0 | Norm=0.0000,-0.013328520002676592,-0.45467808709114166
