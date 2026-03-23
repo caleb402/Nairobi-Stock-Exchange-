@@ -1,16 +1,21 @@
 Sector,Valuation Flag Comprehensive,Cumulative Return
-Agriculture,Strongly Undervalued,-0.14267708849460392
-Agriculture,Weakly Undervalued,-0.01651973425502467
-Banking,Moderately Undervalued,0.023721277344014552
-Banking,Strongly Undervalued,-0.015756455024190947
-Banking,Weakly Undervalued,0.13702481325796048
-Energy,Moderately Undervalued,0.08045242186610994
-Energy,Strongly Undervalued,-0.15661324265479337
-Energy,Weakly Undervalued,0.17487826830055037
-Manufacturing,Strongly Undervalued,0.01787568071739661
-Manufacturing,Weakly Undervalued,0.00017055855232032494
-Retail,Strongly Undervalued,-0.18844742448861035
-Retail,Weakly Undervalued,-0.19346049980531588
-Telecom,Moderately Undervalued,0.00032245574061362525
-Telecom,Strongly Undervalued,0.04830849527162698
-Telecom,Weakly Undervalued,0.011208999830702967
+Agriculture,Overvalued,-0.006835442767433568
+Agriculture,Strongly Undervalued,0.005303228095260774
+Banking,Moderately Undervalued,0.06895528032878434
+Banking,Overvalued,0.07757676230048394
+Banking,Strongly Undervalued,-0.08517160621199732
+Banking,Weakly Undervalued,-0.08442172079246568
+Energy,Moderately Undervalued,-0.004285244174352054
+Energy,Overvalued,0.08717592114126639
+Energy,Strongly Undervalued,-0.04161288534199592
+Manufacturing,Moderately Undervalued,-0.015495890314302763
+Manufacturing,Overvalued,0.015686253266270645
+Manufacturing,Strongly Undervalued,-0.02083482298399142
+Manufacturing,Weakly Undervalued,-0.04112682176368071
+Retail,Moderately Undervalued,0.02659915567216431
+Retail,Overvalued,-0.025359999125007415
+Retail,Weakly Undervalued,-0.04694801833054285
+Telecom,Moderately Undervalued,-0.08360519145783318
+Telecom,Overvalued,0.04084728848768495
+Telecom,Strongly Undervalued,0.18196285211062757
+Telecom,Weakly Undervalued,0.023243200141702114
