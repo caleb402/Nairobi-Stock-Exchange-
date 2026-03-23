@@ -2,14 +2,16 @@ import pandas as pd
 import numpy as np
 from faker import Faker
 from scipy.stats import ttest_ind, mannwhitneyu, normaltest
+from scipy.stats import kruskal
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 # ══════════════════════════════════════════════════════════════════════════════
 # PHASE 1 — DATA GENERATION & VALUATION FLAGGING
 # ══════════════════════════════════════════════════════════════════════════════
 
 # ── Simulation Parameters ─────────────────────────────────────────────────────
-N_COMPANIES = 60
+N_COMPANIES = 64
 DAYS        = 30
 np.random.seed(42)
 
@@ -27,6 +29,22 @@ SECTOR_PARAMS = {
     "Agriculture":   {"mu": 0.0003, "sigma": 0.025}
 }
 
+# Sector-specific volume parameters for Amihud liquidity simulation
+# mean       = average daily trading volume in KSh
+# zero_prob  = probability of a zero-volume day (stock did not trade)
+# Agriculture has the highest zero_prob — NSE agricultural stocks
+# routinely go entire weeks without a single trade
+SECTOR_VOLUME_PARAMS = {
+    "Banking":       {"mean": 50e6,  "zero_prob": 0.02},
+    "Manufacturing": {"mean": 10e6,  "zero_prob": 0.10},
+    "Telecom":       {"mean": 200e6, "zero_prob": 0.01},
+    "Energy":        {"mean": 5e6,   "zero_prob": 0.20},
+    "Retail":        {"mean": 3e6,   "zero_prob": 0.25},
+    "Agriculture":   {"mean": 1e6,   "zero_prob": 0.40},
+}
+
+AMIHUD_VETO_THRESHOLD = 1e-5          # stocks above this are illiquid traps
+VETO_DOWNGRADE_FLAG   = "Weakly Undervalued"   # what illiquid stocks become
 
 def generate_companies() -> pd.DataFrame:
     """
@@ -583,25 +601,71 @@ def apply_valuation_flags(companies: pd.DataFrame,thresholds: dict = None) -> pd
 # ══════════════════════════════════════════════════════════════════════════════
 # DIAGNOSTIC UTILITY
 # ══════════════════════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════════════════════════════
+# DIAGNOSTIC UTILITY                          ← KEEP THIS HEADER
+# ══════════════════════════════════════════════════════════════════════════════
 def calibrate_thresholds(companies: pd.DataFrame) -> dict:
     """
     Suggest thresholds based on percentiles of the actual
     normalised score distribution.
+    Uses only non-zero scores for percentile calculation to
+    preserve the Overvalued tier for genuine zero-scorers.
+    Ensures minimum spacing between thresholds and that the
+    Weakly Undervalued floor sits above the minimum non-zero
+    score so companies scoring at or near 0.0 remain Overvalued.
     """
     scores = companies["Normalised Valuation Score"]
 
+    zero_pct = (scores == 0).mean() * 100
+    print(f"\nScore distribution summary:")
+    print(f"  Companies scoring 0.0:     {zero_pct:.1f}%")
+    print(f"  Companies scoring above 0: {100 - zero_pct:.1f}%")
+
+    nonzero_scores = scores[scores > 0]
+
+    if len(nonzero_scores) < 4:
+        print("\n[WARNING] Too few non-zero scores for calibration.")
+        return {
+            "Strongly Undervalued":   0.60,
+            "Moderately Undervalued": 0.40,
+            "Weakly Undervalued":     0.20,
+        }
+
+    # ── Use only non-zero scores for ALL percentiles ──────────────────────────
+    # This preserves the Overvalued tier for genuine zero-scorers
+    p75 = round(nonzero_scores.quantile(0.75), 4)
+    p50 = round(nonzero_scores.quantile(0.50), 4)
+    p25 = round(nonzero_scores.quantile(0.25), 4)
+
+    # ── Ensure minimum spacing between thresholds ─────────────────────────────
+    MIN_SPACING = 0.05
+    if p75 - p50 < MIN_SPACING:
+        p75 = round(p50 + MIN_SPACING, 4)
+    if p50 - p25 < MIN_SPACING:
+        p50 = round(p25 + MIN_SPACING, 4)
+    if p75 <= p50:
+        p75 = round(p50 + MIN_SPACING, 4)
+
+    # ── Critical: Weakly Undervalued must be above the minimum non-zero score──
+    # This guarantees companies scoring at or near 0.0 remain Overvalued
+    min_nonzero = round(nonzero_scores.min(), 4)
+    if p25 <= min_nonzero:
+        p25 = round(min_nonzero + 0.001, 4)
+        p50 = max(p50, round(p25 + MIN_SPACING, 4))
+        p75 = max(p75, round(p50 + MIN_SPACING, 4))
+
     suggested = {
-        "Strongly Undervalued":   round(scores.quantile(0.75), 2),
-        "Moderately Undervalued": round(scores.quantile(0.50), 2),
-        "Weakly Undervalued":     round(scores.quantile(0.25), 2),
+        "Strongly Undervalued":   p75,
+        "Moderately Undervalued": p50,
+        "Weakly Undervalued":     p25,
     }
 
-    print("\nSuggested thresholds based on score distribution:")
+    print("\nSuggested thresholds based on non-zero score distribution:")
     for flag, threshold in suggested.items():
-        print(f"  >= {threshold:.2f} → {flag}")
+         print(f"  >= {threshold:.4f} → {flag}")
+    print(f"  <  {p25:.4f} → Overvalued")
 
     return suggested
-
 
 def print_weight_summary() -> None:
     """
@@ -685,80 +749,9 @@ if __name__ == "__main__":
 
     # Print weight configuration before running
     print_weight_summary()
-
-    # ── Minimal usage with existing pipeline ─────────────────────────────────
-    # Drop-in replacement for the original apply_valuation_flags():
-    #
-    #   companies = generate_companies()
-    #   companies = apply_valuation_flags(companies)   ← this file
-    #   expanded_df = simulate_price_histories(...)
-    #   companies, expanded_df = compute_returns(companies, expanded_df)
-    #   sector_results = validate_sectors(companies)
-
-    # ── Quick smoke test with synthetic data ──────────────────────────────────
-    np.random.seed(42)
-    n = 30
-
-    test_data = pd.DataFrame({
-        "Ticker":             [f"T{i:02d}" for i in range(n)],
-        "Sector":             np.random.choice(list(SECTOR_CRITERION_WEIGHTS.keys()), n),
-        "P/E Ratio":          np.random.uniform(5,  25, n).round(2),
-        "P/B Ratio":          np.random.uniform(0.5, 5, n).round(2),
-        "ROE (%)":            np.random.uniform(5,  30, n).round(2),
-        "Dividend Yield (%)": np.random.uniform(0,  10, n).round(2),
-        "Market Cap (KES B)": np.random.uniform(1, 200, n).round(2),
-    })
-
-    scored = apply_valuation_flags(test_data)
-    #── DIAGNOSTIC PRINTS — inspect before calibration ────────────────────────
-    suggested_thresholds = calibrate_thresholds(scored)
-    print("\nSuggested thresholds:", suggested_thresholds)
-    print("\nCurrent score distribution:")
-    print(scored["Normalised Valuation Score"].describe())
-
-    # ── SECOND PASS — re-assign flags with calibrated thresholds ─────────────
-    scored = apply_valuation_flags(test_data, thresholds=suggested_thresholds)
-    print("\nSample scored output (first 10 rows):")
-    display_cols = [
-        "Ticker", "Sector",
-        "Raw Valuation Score", "Normalised Valuation Score",
-        "Valuation Flag Comprehensive"
-    ]
-     # ── DISPLAY RESULTS ───────────────────────────────────────────────────────
-    print("\nSample scored output (first 10 rows):")
-    display_cols = [
-        "Ticker", "Sector",
-        "Raw Valuation Score", "Normalised Valuation Score",
-        "Valuation Flag Comprehensive"
-    ]
-    print(scored[display_cols].head(10).to_string(index=False))
-
-    print("\nScore Breakdown for first 5 companies:")
-    for _, row in scored.head(5).iterrows():
-        print(f"  {row['Ticker']} ({row['Sector']}): {row['Score Breakdown']}")
-
-    summarise_scores(scored)
-
-
-
+    
 def simulate_price_histories(tickers: list, sectors: np.ndarray) -> pd.DataFrame:
-    """
-    Simulate 30-day price paths for each company using Geometric Brownian Motion.
 
-    GBM formula per step:
-        P(t) = P(t-1) * exp((mu - 0.5*sigma^2) + sigma * Z)
-    where Z ~ N(0,1). The Ito correction (- 0.5*sigma^2) prevents volatility
-    from artificially inflating the expected price path.
-
-    Parameters
-    ----------
-    tickers : list of ticker strings
-    sectors : array of sector names aligned with tickers
-
-    Returns
-    -------
-    pd.DataFrame with columns: Ticker, Sector, Day, Price
-    """
     all_histories = []
 
     for ticker, sector in zip(tickers, sectors):
@@ -766,17 +759,37 @@ def simulate_price_histories(tickers: list, sectors: np.ndarray) -> pd.DataFrame
         mu    = SECTOR_PARAMS[sector]["mu"]
         sigma = SECTOR_PARAMS[sector]["sigma"]
 
-        prices = [S0]
-        for _ in range(DAYS - 1):
+        # ── Prices — length = DAYS ────────────────────────────────
+        prices = [S0]                        # 1 element
+        for _ in range(DAYS - 1):            # DAYS-1 more
             prices.append(
-                prices[-1] * np.exp((mu - 0.5 * sigma ** 2) + sigma * np.random.normal())
+                prices[-1] * np.exp(
+                    (mu - 0.5 * sigma ** 2) + sigma * np.random.normal()
+                )
             )
+        # prices length = DAYS ✓
 
+        # ── Volumes — length = DAYS ───────────────────────────────
+        vp        = SECTOR_VOLUME_PARAMS[sector]
+        zero_prob = vp["zero_prob"]
+        volumes   = []                       # starts empty
+
+        for _ in range(DAYS):               # exactly DAYS iterations
+            if np.random.random() < zero_prob:
+                volumes.append(0)
+            else:
+                volumes.append(
+                    max(0, np.random.normal(vp["mean"], vp["mean"] * 0.4))
+                )
+        # volumes length = DAYS ✓
+
+        # ── DataFrame — all arrays must be DAYS length ────────────
         all_histories.append(pd.DataFrame({
-            "Ticker": ticker,
-            "Sector": sector,
-            "Day":    range(1, DAYS + 1),
-            "Price":  prices
+            "Ticker": ticker,               # scalar — fine
+            "Sector": sector,               # scalar — fine
+            "Day":    range(1, DAYS + 1),   # length = DAYS ✓
+            "Price":  prices,               # length = DAYS ✓
+            "Volume": volumes               # length = DAYS ✓
         }))
 
     return pd.concat(all_histories, ignore_index=True)
@@ -826,7 +839,10 @@ def compute_returns(
         expanded_df.groupby("Ticker")["Return"]
         .transform(lambda r: (1 + r.fillna(0)).cumprod() - 1)
     )
-
+# ── ADD THIS LINE — prevents column collision on merge ────────────────────
+    if "Cumulative Return" in companies.columns:
+        companies = companies.drop(columns=["Cumulative Return"])
+# ─────────────────────────────────────────────────────────────────────────
     # Step 4: Merge into fundamentals
     companies = companies.merge(final_cumulative, on="Ticker", how="left")
 
@@ -859,12 +875,14 @@ def plot_normalized_returns(companies: pd.DataFrame) -> None:
 
     plt.figure(figsize=(10, 6))
     sns.boxplot(
-        x="Valuation Flag Comprehensive",
-        y="Normalized Return",
-        data=companies,
-        order=existing_order,
-        palette=["#2ecc71", "#27ae60", "#f39c12", "#e74c3c"]
-    )
+    x="Valuation Flag Comprehensive",
+    y="Normalized Return",
+    hue="Valuation Flag Comprehensive",
+    data=companies,
+    order=existing_order,
+    palette=["#2ecc71", "#27ae60", "#f39c12", "#e74c3c"],
+    legend=False
+)
     plt.title("Normalized Returns by Valuation Flag (Sector-Adjusted)", fontsize=14)
     plt.xlabel("Valuation Flag")
     plt.ylabel("Normalized Return (Z-Score)")
@@ -880,8 +898,8 @@ def plot_normalized_returns(companies: pd.DataFrame) -> None:
 # ══════════════════════════════════════════════════════════════════════════════
 
 # ── Constants ─────────────────────────────────────────────────────────────────
-RISK_FREE_RATE   = 0.12  # CBK T-bill rate (annualized)
-MIN_SAMPLE       = 5     # minimum observations per group for statistical tests
+RISK_FREE_RATE   = 0.077 # CBK T-bill rate (annualized)
+MIN_SAMPLE       = 3     # minimum observations per group for statistical tests
 ALPHA            = 0.05  # significance threshold
 
 # All flags representing undervalued stocks (scores 1, 2, 3)
@@ -1000,7 +1018,6 @@ def interpret_cohens_d(d: float | None) -> str:
     if d < 0.8: return "Medium"
     return "Large"
 
-
 def check_normality(series: pd.Series) -> bool:
     """
     Run D'Agostino-Pearson normality test on a return series.
@@ -1014,7 +1031,6 @@ def check_normality(series: pd.Series) -> bool:
         return False
     _, p = normaltest(series)
     return p >= 0.05
-
 
 def run_statistical_tests(
     undervalued: pd.Series,
@@ -1075,6 +1091,225 @@ def run_statistical_tests(
         "significance":   significance
     }
 
+def run_kruskal_wallis(companies: pd.DataFrame) -> dict:
+    groups = []
+    labels = [
+        "Strongly Undervalued",
+        "Moderately Undervalued",
+        "Weakly Undervalued",
+        "Overvalued"
+    ]
+
+    for label in labels:
+        group = companies[
+            companies["Valuation Flag Comprehensive"] == label
+        ]["Normalized Return"].dropna()
+        if len(group) >= 2:
+            groups.append(group)
+
+    if len(groups) < 2:
+        return {
+            "h_statistic":  None,
+            "p_value":      None,
+            "significance": "Insufficient Groups",
+            "groups_tested": len(groups)
+        }
+
+    h_stat, p_val = kruskal(*groups)
+
+    return {
+        "h_statistic":   round(h_stat, 4),
+        "p_value":       round(p_val,  4),
+        "significance":  "Significant" if p_val < ALPHA else "Not Significant",
+        "groups_tested": len(groups)
+    }
+
+def runs_test(returns: pd.Series) -> dict:
+    if len(returns) < 8:
+        return {"pattern": "Insufficient Data"}
+
+    median = returns.median()
+    signs  = (returns > median).astype(int)
+
+    # Count runs — a run is a sequence of consecutive same-sign values
+    runs = 1 + (signs.diff().abs() > 0).sum()
+    n1   = signs.sum()
+    n2   = len(signs) - n1
+    n    = len(signs)
+
+    expected_runs = (2 * n1 * n2 / n) + 1
+    variance_runs = (
+        (2 * n1 * n2 * (2 * n1 * n2 - n)) /
+        (n ** 2 * (n - 1))
+    )
+
+    z_score = (runs - expected_runs) / np.sqrt(variance_runs)
+
+    from scipy.stats import norm
+    p_value = 2 * (1 - norm.cdf(abs(z_score)))
+
+    pattern = (
+        "Trending — undervaluation persists"
+        if p_value < 0.05 and runs < expected_runs
+        else "Mean-reverting — quick correction"
+        if p_value < 0.05 and runs > expected_runs
+        else "Random — no clear pattern"
+    )
+
+    return {
+        "runs":          int(runs),
+        "expected_runs": round(expected_runs, 2),
+        "z_score":       round(z_score, 4),
+        "p_value":       round(p_value, 4),
+        "pattern":       pattern
+    }
+
+def compute_amihud_ratio(price_history: pd.DataFrame) -> pd.DataFrame:
+    """
+    Amihud Ratio = mean(|Return| / Volume_KSh)
+
+    Interpretation:
+    Low  ratio → liquid  → 1% return needs large volume → price is real
+    High ratio → illiquid → 1% return needs tiny volume → price is paper
+    """
+    def amihud_per_ticker(group):
+        valid = group.dropna(subset=["Return", "Volume"])
+        valid = valid[valid["Volume"] > 0]
+        if len(valid) == 0:
+            return np.nan
+        return (valid["Return"].abs() / valid["Volume"]).mean()
+
+    amihud = (
+        price_history.groupby("Ticker")
+        .apply(amihud_per_ticker)
+        .reset_index()
+    )
+    amihud.columns = ["Ticker", "Amihud_Ratio"]
+    return amihud
+
+def apply_liquidity_veto(companies: pd.DataFrame) -> pd.DataFrame:
+    """
+    Downgrade any Strongly or Moderately Undervalued stock
+    whose Amihud ratio exceeds the liquidity veto threshold.
+    ...
+    """
+    if "Amihud_Ratio" not in companies.columns:
+        print("[WARNING] Amihud_Ratio column not found — veto skipped")
+        return companies
+
+    companies = companies.copy()
+
+    veto_mask = (
+        (companies["Amihud_Ratio"] > AMIHUD_VETO_THRESHOLD) &
+        (companies["Valuation Flag Comprehensive"].isin([
+            "Strongly Undervalued",
+            "Moderately Undervalued"
+        ]))
+    )
+
+    veto_count = veto_mask.sum()
+
+    if veto_count > 0:
+        print(f"\n[LIQUIDITY VETO] {veto_count} stocks downgraded "
+              f"to {VETO_DOWNGRADE_FLAG}:")
+        vetoed = companies[veto_mask][
+            ["Ticker", "Sector", "Valuation Flag Comprehensive",
+             "Amihud_Ratio", "Normalised Valuation Score"]
+        ]
+        print(vetoed.to_string(index=False))
+
+        companies.loc[veto_mask, "Valuation Flag Comprehensive"] = (
+            VETO_DOWNGRADE_FLAG
+        )
+
+        companies.loc[veto_mask, "Score Breakdown"] = (
+            companies.loc[veto_mask, "Score Breakdown"]
+            + f" | VETO=Liquidity(Amihud>{AMIHUD_VETO_THRESHOLD:.0e})"
+        )
+    else:
+        print("\n[LIQUIDITY VETO] No stocks vetoed — all pass liquidity check")
+
+    return companies
+
+def compute_liquidity_adjusted_sharpe(
+    returns:          pd.Series,
+    zero_volume_days: int,
+    total_days:       int,
+    risk_free_rate:   float = RISK_FREE_RATE
+) -> float | None:
+    std = returns.std()
+    if std is None or std == 0:
+        return None
+    raw_sharpe        = (returns.mean() - risk_free_rate) / std
+    liquidity_penalty = 1 - (zero_volume_days / total_days)
+    return raw_sharpe * liquidity_penalty
+
+def compute_jensens_alpha(
+    portfolio_returns: pd.Series,
+    market_returns:    pd.Series,
+    risk_free_rate:    float = RISK_FREE_RATE,
+    market_caps:       pd.Series = None
+) -> dict:
+    """
+    Compute Jensen's Alpha using CAPM framework.
+    Alpha = Rp - [Rf + Beta * (Rm - Rf)]
+    Beta fixed at 1.0 for equal-weighted universe proxy.
+
+    If market_caps provided uses market-cap weighted market
+    return to better approximate NSE Safaricom-dominated
+    structure. Otherwise falls back to equal-weighted mean.
+    """
+    if len(portfolio_returns) < 3:
+        return {"alpha": None, "beta": None,
+                "interpretation": "Insufficient Data"}
+
+    # ── Market return ─────────────────────────────────────────────
+    if market_caps is not None and len(market_caps) == len(market_returns):
+        weights      = market_caps / market_caps.sum()
+        market_mean  = (market_returns * weights).sum()
+        proxy_method = "Market-Cap Weighted"
+    else:
+        market_mean  = market_returns.mean()
+        proxy_method = "Equal-Weighted"
+
+    portfolio_mean  = portfolio_returns.mean()
+    beta            = 1.0
+    expected_return = risk_free_rate + beta * (market_mean - risk_free_rate)
+    alpha           = portfolio_mean - expected_return
+
+    interpretation = (
+        "Outperforms market risk-adjusted"
+        if alpha > 0
+        else "Underperforms — buy NASI index instead"
+    )
+
+    return {
+        "alpha":          round(alpha, 4),
+        "beta":           round(beta,  4),
+        "proxy_method":   proxy_method,
+        "interpretation": interpretation
+    }
+ 
+def compute_information_ratio(
+    portfolio_returns: pd.Series,
+    benchmark_returns: pd.Series
+) -> float | None:
+    """
+    IR = Active Return / Tracking Error
+
+    Active Return  = mean(portfolio) - mean(benchmark)
+    Tracking Error = std(portfolio returns - benchmark returns)
+
+    IR > 0.5 = consistently beating the index
+    IR > 1.0 = excellent — rare in any market
+    """
+    active_returns = portfolio_returns.values - benchmark_returns.mean()
+    tracking_error = active_returns.std()
+
+    if tracking_error == 0:
+        return None
+
+    return round(active_returns.mean() / tracking_error, 4)
 
 def assign_risk_flag(row: pd.Series) -> str:
     """
@@ -1111,7 +1346,6 @@ def assign_risk_flag(row: pd.Series) -> str:
         return "Risk-Adjusted Negative"
 
     return "No Risk Data"
-
 
 def assign_verdict(row: pd.Series) -> str:
     """
@@ -1165,7 +1399,6 @@ def assign_verdict(row: pd.Series) -> str:
         return f"Mixed — Undervalued Stocks Safer But Lower Raw Return ({d} Effect)"
     else:
         return f"Algorithm Contradicted — Underperforms on Return and Risk ({d} Effect)"
-
 
 def compute_summary_row(companies: pd.DataFrame, risk_free_rate: float) -> dict:
     """
@@ -1231,7 +1464,6 @@ def compute_summary_row(companies: pd.DataFrame, risk_free_rate: float) -> dict:
     }
 
     return summary
-
 
 def validate_sectors(
     companies:      pd.DataFrame,
@@ -1353,11 +1585,22 @@ def validate_sectors(
 
         results.append(row)
 
-    # ── Build Output DataFrame ────────────────────────────────────────────────
+   # ── Build Output DataFrame ────────────────────────────────────────────────
     sector_results = pd.DataFrame(results)
 
-    # Append aggregate summary row across all sectors
+    # ── NEW: Kruskal-Wallis across all four tiers ─────────────────────────────
+    # Runs once on the full dataset — not per sector
+    kw_result = run_kruskal_wallis(companies)
+
+    # ── Append aggregate summary row ─────────────────────────────────────────
     summary = compute_summary_row(companies, risk_free_rate)
+
+    # Add KW results to the summary row
+    summary["KW H-Statistic"] = kw_result["h_statistic"]
+    summary["KW P-Value"]     = kw_result["p_value"]
+    summary["KW Significance"]= kw_result["significance"]
+    summary["KW Groups Tested"]= kw_result["groups_tested"]
+
     sector_results = pd.concat(
         [sector_results, pd.DataFrame([summary])],
         ignore_index=True
@@ -1372,14 +1615,32 @@ def validate_sectors(
 
 if __name__ == "__main__":
 
-    # ── Phase 1: Generate & Prepare Data ─────────────────────────────────────
     print("=" * 60)
     print("PHASE 1: Data Generation & Valuation Flagging")
     print("=" * 60)
 
+    # ── Step 1: Generate companies — fundamentals only ────────────────────────
     companies = generate_companies()
+
+    # ── Step 2: Simulate prices ───────────────────────────────────────────────
+    expanded_df = simulate_price_histories(
+        companies["Ticker"].tolist(),
+        companies["Sector"].values
+    )
+
+    # ── Step 3: Compute returns — adds Cumulative Return to companies ─────────
+    companies, expanded_df = compute_returns(companies, expanded_df)
+    # companies now has Cumulative Return and Normalized Return columns
+
+    # ── Step 4: Compute Amihud — needs Volume column in expanded_df ───────────
+    if "Volume" in expanded_df.columns:
+        amihud_results = compute_amihud_ratio(expanded_df)
+        companies = companies.merge(amihud_results, on="Ticker", how="left")
+        print("\nAmihud ratios computed and merged into company data")
+
+    # ── Step 5: Score companies — first pass with default thresholds ──────────
     companies = apply_valuation_flags(companies)
-    
+
     print(f"\nCompanies generated: {len(companies)}")
     print("\nPre-calibration flag distribution:")
     print(companies["Valuation Flag Comprehensive"].value_counts())
@@ -1387,40 +1648,40 @@ if __name__ == "__main__":
     print("\nPre-calibration score distribution:")
     print(companies["Normalised Valuation Score"].describe().round(4))
 
-suggested_thresholds = calibrate_thresholds(companies)
-print("\nSuggested thresholds:", suggested_thresholds)
+    # ── Step 6: Calibrate thresholds ─────────────────────────────────────────
+    suggested_thresholds = calibrate_thresholds(companies)
+    print("\nSuggested thresholds:", suggested_thresholds)
 
-companies = apply_valuation_flags(companies, thresholds=suggested_thresholds)
-
-print("\nPost-calibration flag distribution:")
-print(companies["Valuation Flag Comprehensive"].value_counts())
-
-print(f"\nCompanies generated: {len(companies)}")
-print(f"Valuation flag distribution:\n{companies['Valuation Flag Comprehensive'].value_counts()}\n")
-
-expanded_df = simulate_price_histories(
-        companies["Ticker"].tolist(),
-        companies["Sector"].values
+    companies = apply_valuation_flags(
+        companies, thresholds=suggested_thresholds
     )
 
-companies, expanded_df = compute_returns(companies, expanded_df)
+    print("\nPost-calibration flag distribution (before veto):")
+    print(companies["Valuation Flag Comprehensive"].value_counts())
 
-    # Average cumulative return by sector and valuation flag
-avg_returns_by_sector_flag = companies.groupby(
+    # ── Step 7: Apply Liquidity Veto ──────────────────────────────────────────
+    if "Amihud_Ratio" in companies.columns:
+        companies = apply_liquidity_veto(companies)
+        print("\nPost-veto flag distribution:")
+        print(companies["Valuation Flag Comprehensive"].value_counts())
+
+    # ── Step 8: Compute average returns ───────────────────────────────────────
+    avg_returns_by_sector_flag = companies.groupby(
         ["Sector", "Valuation Flag Comprehensive"]
     )["Cumulative Return"].mean()
 
-print("Average Cumulative Return by Sector and Valuation Flag:")
-print(avg_returns_by_sector_flag.round(4))
+    print("\nAverage Cumulative Return by Sector and Valuation Flag:")
+    print(avg_returns_by_sector_flag.round(4))
 
-save_outputs(companies, expanded_df, avg_returns_by_sector_flag)
-
+    save_outputs(companies, expanded_df, avg_returns_by_sector_flag)
+  
+   
     # ── Phase 2: Statistical Validation ──────────────────────────────────────
-print("\n" + "=" * 60)
-print("PHASE 2: Statistical Validation")
-print("=" * 60)
+    print("\n" + "=" * 60)
+    print("PHASE 2: Statistical Validation")
+    print("=" * 60)
 
-sector_results = validate_sectors(
+    sector_results = validate_sectors(
         companies,
         min_sample     = MIN_SAMPLE,
         risk_free_rate = RISK_FREE_RATE,
@@ -1428,30 +1689,119 @@ sector_results = validate_sectors(
     )
 
     # Display full results
-pd.set_option("display.max_columns", None)
-pd.set_option("display.width", 200)
-pd.set_option("display.float_format", "{:.4f}".format)
+    pd.set_option("display.max_columns", None)
+    pd.set_option("display.width", 200)
+    pd.set_option("display.float_format", "{:.4f}".format)
 
     
-print("\nSector Validation Results:")
-print(sector_results.to_string(index=False))
+    print("\nSector Validation Results:")
+    print(sector_results.to_string(index=False))
 
     # Save validation results
-sector_results.to_csv("sector_validation_results.csv", index=False)
-print("\nValidation results saved: sector_validation_results.csv")
+    sector_results.to_csv("sector_validation_results.csv", index=False)
+    print("\nValidation results saved: sector_validation_results.csv")
 
-    # Verdict summary
-print("\n" + "=" * 60)
-print("VERDICT SUMMARY")
-print("=" * 60)
-verdict_cols = ["Sector", "Risk Flag", "Verdict"]
-print(sector_results[verdict_cols].to_string(index=False))
+# ══ ADD ALL ENHANCEMENTS HERE ════════════════════════════════
+    print("\n" + "─" * 60)
+    print("KRUSKAL-WALLIS H-TEST (all four valuation tiers)")
+    print("─" * 60)
+    kw_result = run_kruskal_wallis(companies)
+    print(f"  H-statistic  : {kw_result['h_statistic']}")
+    print(f"  p-value      : {kw_result['p_value']}")
+    print(f"  Groups tested: {kw_result['groups_tested']}")
+    print(f"  Result       : {kw_result['significance']}")
 
-    # ── Phase 3: Visualisation ────────────────────────────────────────────────
-print("\n" + "=" * 60)
-print("PHASE 3: Visualisation")
-print("=" * 60)
+    print("\n" + "─" * 60)
+    print("RUNS TEST (undervalued group return pattern)")
+    print("─" * 60)
+    all_uv_returns = companies[
+        companies["Valuation Flag Comprehensive"] != "Overvalued"
+        ]["Normalized Return"].dropna()
+    runs_result = runs_test(all_uv_returns)
+    print(f"  Runs observed : {runs_result.get('runs', 'N/A')}")
+    print(f"  Runs expected : {runs_result.get('expected_runs', 'N/A')}")
+    print(f"  Z-score       : {runs_result.get('z_score', 'N/A')}")
+    print(f"  p-value       : {runs_result.get('p_value', 'N/A')}")
+    print(f"  Pattern       : {runs_result.get('pattern', 'N/A')}")
 
-plot_normalized_returns(companies)
+    print("\n" + "─" * 60)
+    print("JENSEN'S ALPHA (undervalued vs market proxy)")
+    print("─" * 60)
+    market_proxy = companies["Normalized Return"].dropna()
+    alpha_result = compute_jensens_alpha(
+        all_uv_returns,
+        market_proxy,
+        RISK_FREE_RATE,
+        market_caps=companies["Market Cap (KES B)"]    
+    )
+    print(f"  Alpha         : {alpha_result['alpha']}")
+    print(f"  Beta          : {alpha_result['beta']}")
+    print(f"  Proxy method  : {alpha_result['proxy_method']}")    
+    print(f"  Interpretation: {alpha_result['interpretation']}")
+
+    print("\n" + "─" * 60)
+    print("INFORMATION RATIO (consistency of outperformance)")
+    print("─" * 60)
+    ir = compute_information_ratio(all_uv_returns, market_proxy)
+    print(f"  IR : {ir}")
+    if ir is not None:
+            rating = (
+                "Excellent" if ir > 1.0
+                else "Good"     if ir > 0.5
+                else "Positive" if ir > 0.0
+                else "Negative — consider passive NASI index instead"
+            )
+            print(f"  Rating : {rating}")
+
+    if "Amihud_Ratio" in companies.columns:
+        print("\n" + "─" * 60)
+        print("AMIHUD ILLIQUIDITY RATIO (per valuation flag)")
+        print("─" * 60)
+
+        nan_count = companies["Amihud_Ratio"].isna().sum()
+        if nan_count > 0:
+            print(f"  [WARNING] {nan_count} companies missing Amihud data")
+
+        amihud_by_flag = (
+            companies
+            .groupby("Valuation Flag Comprehensive")["Amihud_Ratio"]
+            .mean()
+        )
+
+        LIQUID_THRESHOLD   = 1e-6
+        MODERATE_THRESHOLD = 1e-5
+
+        for flag, ratio in amihud_by_flag.items():
+            if pd.isna(ratio):
+                print(f"  {flag:<25} N/A — no liquidity data")
+                continue
+            liquidity_label = (
+                "LIQUID"         if ratio < LIQUID_THRESHOLD
+                else "MODERATE"  if ratio < MODERATE_THRESHOLD
+                else "ILLIQUID"
+            )
+            print(f"  {flag:<25} {ratio:.2e}   {liquidity_label}")
+
+        print(f"\n  Lower = more liquid. High Amihud = paper gains only.")
+        print(f"  Thresholds: LIQUID < {LIQUID_THRESHOLD:.0e} | "
+              f"MODERATE < {MODERATE_THRESHOLD:.0e} | "
+              f"ILLIQUID >= {MODERATE_THRESHOLD:.0e}")
+        print(f"  Note: Volume assumed in raw KES. "
+              f"Adjust thresholds if units change at Milestone 4.")
+    # ══ END OF ENHANCEMENTS ══════════════════════════════════════
+
+    # Verdict summary 
+    print("\n" + "=" * 60)
+    print("VERDICT SUMMARY")
+    print("=" * 60)
+    verdict_cols = ["Sector", "Risk Flag", "Verdict"]
+    print(sector_results[verdict_cols].to_string(index=False))
+
+# ── Phase 3: Visualisation ────────────────────────────────────────────────
+    print("\n" + "=" * 60)
+    print("PHASE 3: Visualisation")
+    print("=" * 60)
+
+    plot_normalized_returns(companies)
 
 
