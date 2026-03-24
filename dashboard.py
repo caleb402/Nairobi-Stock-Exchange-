@@ -398,18 +398,61 @@ def render_tab(tab, selected_sectors, selected_flags,
                          style={"flex": "1"}),
             ], style={"display": "flex", "gap": "16px"}),
 
+
             # Score distribution table
             html.Div([
                 section_header("Score Distribution by Sector"),
-                html.Div(
-                    fc.groupby(["Sector", "Valuation Flag Comprehensive"])[
-                        "Normalised Valuation Score"
-                    ].agg(["mean", "count"]).round(3).reset_index()
-                    .rename(columns={
-                        "mean": "Avg Score", "count": "Companies"
-                    }).to_html(index=False, classes="data-table"),
-                    style={"overflowX": "auto", "fontSize": "12px"}
-                )
+                html.Div([
+                    html.Table([
+                        html.Thead(
+                            html.Tr([
+                                html.Th(col, style={
+                                    "padding": "6px 10px", "fontSize": "11px",
+                                    "background": "#f8f9fa", "fontWeight": "600",
+                                    "color": "#444", "borderBottom": "1px solid #e0e0e0",
+                                    "textAlign": "left"
+                                })
+                                for col in ["Sector", "Valuation Flag Comprehensive",
+                                            "Avg Score", "Companies"]
+                            ])
+                        ),
+                        html.Tbody([
+                            html.Tr([
+                                html.Td(row["Sector"], style={
+                                    "padding": "5px 10px", "fontSize": "11px",
+                                    "borderBottom": "0.5px solid #f0f0f0"
+                                }),
+                                html.Td(
+                                    row["Valuation Flag Comprehensive"],
+                                    style={
+                                        "padding": "5px 10px", "fontSize": "11px",
+                                        "borderBottom": "0.5px solid #f0f0f0",
+                                        "color": FLAG_COLOURS.get(
+                                            row["Valuation Flag Comprehensive"], "#333"
+                                        ),
+                                        "fontWeight": "500"
+                                    }
+                                ),
+                                html.Td(f"{row['Avg Score']:.3f}", style={
+                                    "padding": "5px 10px", "fontSize": "11px",
+                                    "borderBottom": "0.5px solid #f0f0f0",
+                                    "textAlign": "right"
+                                }),
+                                html.Td(str(row["Companies"]), style={
+                                    "padding": "5px 10px", "fontSize": "11px",
+                                    "borderBottom": "0.5px solid #f0f0f0",
+                                    "textAlign": "right"
+                                }),
+                            ])
+                            for _, row in (
+                                fc.groupby(["Sector", "Valuation Flag Comprehensive"])[
+                                    "Normalised Valuation Score"
+                                ].agg(["mean", "count"]).round(3).reset_index()
+                                .rename(columns={"mean": "Avg Score", "count": "Companies"})
+                            ).iterrows()
+                        ])
+                    ], style={"width": "100%", "borderCollapse": "collapse"})
+                ], style={"overflowX": "auto"})
             ], style={
                 "background": "white", "padding": "16px",
                 "borderRadius": "8px", "border": "0.5px solid #e0e0e0",
